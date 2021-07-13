@@ -7,118 +7,118 @@ import java.util.Scanner;
 
 public class mp3_mp4 {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("put the location of your drier here");
-        WebDriver driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-
-        WebDriverWait wait = new WebDriverWait(driver, 15);
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Ron\\Documents\\chromedriver_win32\\chromedriver.exe");
 
         //asks the user what song they want to download
         Scanner scan = new Scanner(System.in);
         System.out.print("copy and the exact name of the video/song you wont to download: ");
         String name = scan.nextLine();
 
-        //opens youtube
-        driver.get("https://youtube.com");
+        // opens chrome after user writes the name of the video/song
+        if ( name != null ) {
 
-        Thread.sleep(500);
+            WebDriver driver = new ChromeDriver();
 
-        //finds the search bar and clicks it
-        WebElement YouInp = driver.findElement(By.id("search"));
-        YouInp.click();
+            WebDriverWait wait = new WebDriverWait(driver, 15);
 
-        Thread.sleep(500);
+            //opens youtube
+            driver.get("https://youtube.com");
 
-        //puts the name of the video or song you want to download
-        YouInp.sendKeys(name, Keys.ENTER);
+            Thread.sleep(500);
 
-        Thread.sleep(1000);
+            //finds the search bar and clicks it
+            WebElement YouInp = driver.findElement(By.id("search"));
+            YouInp.click();
 
-        //clicks the video
-        WebElement Video = driver.findElement(By.xpath("//yt-formatted-string[text()= '" + name + "'][1]"));
-        Video.click();
+            Thread.sleep(500);
 
-        Thread.sleep(500);
+            //puts the name of the video or song you want to download
+            YouInp.sendKeys(name, Keys.ENTER);
 
-        //copies the url 
-        String url = driver.getCurrentUrl();
-        System.out.println(url);
+            Thread.sleep(1000);
 
-        Thread.sleep(1000);
+            //clicks the video
+            WebElement Video = driver.findElement(By.xpath("//yt-formatted-string[text()= '" + name + "'][1]"));
+            Video.click();
 
-        //opens the mp3/mp4 youtube downloader
-        driver.get("https://ytmp3.cc/youtubemp3/");
+            Thread.sleep(500);
 
-        Thread.sleep(1000);
+            //copies the url
+            String url = driver.getCurrentUrl();
+            System.out.println(url);
 
-        //loop
-        while (true)
-        {
-            try {
-                //asks what u want to download(mp3/mp40
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("MP3/MP4?: ");
-                int mp3_or_mp4 = scanner.nextInt();
+            Thread.sleep(1000);
 
-                //if chosen mp3 then...
-                if(mp3_or_mp4 == 3)
-                {
-                    //finds the input, puts the url and press enter
-                    WebElement input = driver.findElement(By.id("input"));
-                    input.sendKeys(url, Keys.ENTER);
+            //opens the mp3/mp4 youtube downloader
+            driver.get("https://ytmp3.cc/youtubemp3/");
 
-                    Thread.sleep(500);
+            Thread.sleep(1000);
 
-                    //finds download and clicks it
-                    WebElement download = driver.findElement(By.xpath("//a[text()='Download']"));
-                    download.click();
-                    
-                    // stops
-                    return;
-                }
+            //loop
+            while (true) {
+                try {
+                    //asks what u want to download(mp3/mp40
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("MP3/MP4?: ");
+                    int mp3_or_mp4 = scanner.nextInt();
 
-                //if mp4 then...
-                if(mp3_or_mp4 == 4)
-                {
-                    //finds the mp4 button and clicks it
-                    WebElement mp4 = driver.findElement(By.id("mp4"));
-                    mp4.click();
+                    //if chosen mp3 then...
+                    if (mp3_or_mp4 == 3) {
+                        //finds the input, puts the url and press enter
+                        WebElement input = driver.findElement(By.id("input"));
+                        input.sendKeys(url, Keys.ENTER);
 
-                    Thread.sleep(500);
+                        Thread.sleep(500);
 
-                    //finds the input, puts the url and press enter
-                    WebElement input = driver.findElement(By.id("input"));
-                    input.sendKeys(url, Keys.ENTER);
+                        //finds download and clicks it
+                        WebElement download = driver.findElement(By.xpath("//a[text()='Download']"));
+                        download.click();
 
-                    Thread.sleep(500);
-                    
-                    //wait until the download shows up because it might take more then 10 seconds
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Download']")));
+                        // stops
+                        return;
+                    }
 
-                    //finds the download and clicks it
-                    WebElement download = driver.findElement(By.xpath("//a[text()='Download']"));
-                    download.click();
+                    //if mp4 then...
+                    if (mp3_or_mp4 == 4) {
+                        //finds the mp4 button and clicks it
+                        WebElement mp4 = driver.findElement(By.id("mp4"));
+                        mp4.click();
 
-                    // stops
-                    return;
-                    
-                // if you didnt enter 3 or 4 and u chose a random number then it will show this error
-                } else {
+                        Thread.sleep(500);
+
+                        //finds the input, puts the url and press enter
+                        WebElement input = driver.findElement(By.id("input"));
+                        input.sendKeys(url, Keys.ENTER);
+
+                        Thread.sleep(500);
+
+                        //wait until the download shows up because it might take more then 10 seconds
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Download']")));
+
+                        //finds the download and clicks it
+                        WebElement download = driver.findElement(By.xpath("//a[text()='Download']"));
+                        download.click();
+
+                        // stops
+                        return;
+
+                        // if you didnt enter 3 or 4 and u chose a random number then it will show this error
+                    } else {
+                        System.out.println("");
+                        System.out.println("-----------------------------------------");
+                        System.out.println("E R R O R ! Please enter 3 = mp3/ 4 = mp4");
+                        System.out.println("-----------------------------------------");
+                        System.out.println("");
+                    }
+
+                    // if you pressed a word or something like that that isnt a number it will show an error
+                } catch (RuntimeException e) {
                     System.out.println("");
                     System.out.println("-----------------------------------------");
                     System.out.println("E R R O R ! Please enter 3 = mp3/ 4 = mp4");
                     System.out.println("-----------------------------------------");
                     System.out.println("");
                 }
-            
-            // if you pressed a word or something like that that isnt a number it will show an error    
-            } catch (RuntimeException e)
-            {
-                System.out.println("");
-                System.out.println("-----------------------------------------");
-                System.out.println("E R R O R ! Please enter 3 = mp3/ 4 = mp4");
-                System.out.println("-----------------------------------------");
-                System.out.println("");
             }
         }
     }
