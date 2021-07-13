@@ -92,7 +92,7 @@ public class mp3_mp4 {
 
                     Thread.sleep(500);
                     
-                    //wait untill the download shows up because it might take more then 10 seconds
+                    //wait until the download shows up because it might take more then 10 seconds
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Download']")));
 
                     //finds the download and clicks it
