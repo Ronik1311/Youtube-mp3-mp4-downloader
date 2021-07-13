@@ -7,14 +7,16 @@ import java.util.Scanner;
 
 public class mp3_mp4 {
     public static void main(String[] args) throws InterruptedException {
-        System.setProperty("//put the location of where your drier is");
+        System.setProperty("put the location of your drier here");
         WebDriver driver = new ChromeDriver();
 //        driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, 15);
 
-        //put the exact name of the video you want to download
-        String name = "Army-Destroying Punch! | One Piece";
+        //asks the user what song they want to download
+        Scanner scan = new Scanner(System.in);
+        System.out.print("copy and the exact name of the video/song you wont to download: ");
+        String name = scan.nextLine();
 
         //opens youtube
         driver.get("https://youtube.com");
